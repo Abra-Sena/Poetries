@@ -15,24 +15,33 @@ interface PoetryService {
     suspend fun getAllAuthors(): Response<Authors>
 
     /**
-     * Search for an author with their name /or part of their name
+     * Retrieve a poem by searching the title
      */
-    @GET("$AUTHOR_PATH/<author>")
+    @GET(TITLE_PATH)
+    suspend fun getAllPoemByTitle() : Response<List<Poem>>
+
+    /**
+     * Search for an author with their name /or part of their name equal the passed param
+     */
+    @GET("$AUTHOR_PATH/<author>/$AUTHOR_PATH")
     suspend fun getPoemByAuthor(
         @Query("author") authorName: String
     ) : Response<List<Poem>>
 
     /**
-     * Retrieve a poem by searching the title
+     * Search for poems that have the passed param string in their title
      */
-    @GET(TITLE_PATH)
-    suspend fun getPoemByTitle()
+    @GET("$TITLE_PATH/<title>/$TITLE_PATH")
+    suspend fun getPoemByTitle(
+        @Query("title") poemTitle: String
+    ) : Response<List<Poem>>
+
 
     /**
      * Get a random poem
      */
     @GET(RANDOM_PATH)
-    suspend fun getRandomPoem()
+    suspend fun getRandomPoem() : Response<Poem>
 
     /**
      * Get a certain number of random poem

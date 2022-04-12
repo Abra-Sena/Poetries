@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/WelcomeView">
 
+    <fragment
+        android:id="@+id/WelcomeView"
+        android:name="com.emissa.apps.poetries.views.WelcomeView"
+        android:label="fragment_welcome_view"
+        tools:layout="@layout/fragment_welcome_view" >
+        <action
+            android:id="@+id/action_welcome_to_poetry"
+            app:destination="@id/Poetry" />
+        <action
+            android:id="@+id/action_welcome_to_authors"
+            app:destination="@id/Authors" />
+    </fragment>
+    <fragment
+        android:id="@+id/Poetry"
+        android:name="com.emissa.apps.poetries.views.Poetry"
+        android:label="fragment_poetry"
+        tools:layout="@layout/fragment_poetry" />
+    <fragment
+        android:id="@+id/Authors"
+        android:name="com.emissa.apps.poetries.views.Authors"
+        android:label="fragment_authors"
+        tools:layout="@layout/fragment_authors" />
 </navigation>
