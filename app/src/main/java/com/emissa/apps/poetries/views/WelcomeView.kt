@@ -1,7 +1,6 @@
 package com.emissa.apps.poetries.views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +20,21 @@ class WelcomeView : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding.btnAuthors.setOnClickListener {
-            findNavController().navigate(R.id.action_welcome_to_authors)
+            binding.searchView.visibility = View.VISIBLE
+            val action = WelcomeViewDirections.actionWelcomeToAuthors()
+            findNavController().navigate(action)
         }
 
         binding.btnPoetry.setOnClickListener {
-            findNavController().navigate(R.id.action_welcome_to_poetry)
+            binding.searchView.visibility = View.VISIBLE
+            val action = WelcomeViewDirections.actionWelcomeToPoetry()
+            findNavController().navigate(action)
+        }
+
+        binding.btnRandom.setOnClickListener {
+            poetryViewModel.getRandomPoem()
+            val action = WelcomeViewDirections.actionWelcomeViewToPoemDetailsView()
+            findNavController().navigate(action)
         }
 
         // Inflate the layout for this fragment

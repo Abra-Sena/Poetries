@@ -2,6 +2,8 @@ package com.emissa.apps.poetries.database
 
 import androidx.room.*
 import com.emissa.apps.poetries.model.Poem
+import com.emissa.apps.poetries.model.PoemAuthors
+import com.emissa.apps.poetries.model.PoemTitles
 import com.emissa.apps.poetries.utils.DataConverter
 
 
@@ -17,10 +19,7 @@ interface PoemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPoems(newPoetry: List<Poem>)
 
-    @Query("SELECT * FROM poem" )
-    suspend fun getAllPoetry() : List<Poem>
-//    @Query("SELECT * FROM authors" )
-//    suspend fun getAllAuthors() : Authors
+
     @Query("SELECT * FROM poem WHERE author = :author" )
     suspend fun getPoemByAuthor(author: String): List<Poem>
     @Query("SELECT * FROM poem WHERE title = :title" )

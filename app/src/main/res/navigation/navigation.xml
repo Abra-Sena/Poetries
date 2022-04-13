@@ -8,23 +8,39 @@
     <fragment
         android:id="@+id/WelcomeView"
         android:name="com.emissa.apps.poetries.views.WelcomeView"
-        android:label="fragment_welcome_view"
+        android:label="Poetry App"
         tools:layout="@layout/fragment_welcome_view" >
         <action
             android:id="@+id/action_welcome_to_poetry"
-            app:destination="@id/Poetry" />
+            app:destination="@id/PoemsView" />
         <action
             android:id="@+id/action_welcome_to_authors"
-            app:destination="@id/Authors" />
+            app:destination="@id/ListView" />
+        <action
+            android:id="@+id/action_WelcomeView_to_PoemDetailsView"
+            app:destination="@id/PoemDetailsView" />
     </fragment>
     <fragment
-        android:id="@+id/Poetry"
-        android:name="com.emissa.apps.poetries.views.Poetry"
-        android:label="fragment_poetry"
+        android:id="@+id/PoemsView"
+        android:name="com.emissa.apps.poetries.views.PoemsView"
+        android:label="Poems List"
+        tools:layout="@layout/fragment_poetry" >
+        <action
+            android:id="@+id/action_PoemsView_to_PoemDetailsView"
+            app:destination="@id/PoemDetailsView" />
+    </fragment>
+    <fragment
+        android:id="@+id/PoemDetailsView"
+        android:name="com.emissa.apps.poetries.views.PoemsView"
+        android:label="Reading Poem"
         tools:layout="@layout/fragment_poetry" />
     <fragment
-        android:id="@+id/Authors"
-        android:name="com.emissa.apps.poetries.views.Authors"
-        android:label="fragment_authors"
-        tools:layout="@layout/fragment_authors" />
+        android:id="@+id/ListView"
+        android:name="com.emissa.apps.poetries.views.ListFragment"
+        android:label="Search Results"
+        tools:layout="@layout/fragment_list_views" >
+        <action
+            android:id="@+id/action_ListView_to_PoemDetailsView"
+            app:destination="@id/PoemDetailsView" />
+    </fragment>
 </navigation>

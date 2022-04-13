@@ -5,16 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.emissa.apps.poetries.R
+import com.emissa.apps.poetries.adapters.ItemClickListener
+import com.emissa.apps.poetries.adapters.PoetryAdapter
 import com.emissa.apps.poetries.databinding.FragmentPoetryBinding
 import com.emissa.apps.poetries.model.Poem
 import com.emissa.apps.poetries.utils.NetworkState
 
 
-class Poetry : BaseFragment() {
+class PoemsView : BaseFragment(), ItemClickListener<Poem> {
 
     private val binding by lazy {
         FragmentPoetryBinding.inflate(layoutInflater)
+    }
+
+    private val poemAdapter by lazy {
+        PoetryAdapter<Poem>(this)
     }
 
     override fun onCreateView(
@@ -30,7 +38,7 @@ class Poetry : BaseFragment() {
             adapter = poemAdapter
         }
 
-        poetryViewModel.poetryData.observe(viewLifecycleOwner) { state ->
+        poetryViewModel.poemsData.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is NetworkState.LOADING -> {
                     Toast.makeText(
@@ -41,7 +49,7 @@ class Poetry : BaseFragment() {
                 }
                 is NetworkState.SUCCESS<*> -> {
                     val poetry = state.response as List<Poem>
-                    poemAdapter.setPoems(poetry)
+                    poemAdapter.setItems(poetry)
                 }
                 is NetworkState.ERROR -> {
                     Toast.makeText(
@@ -53,9 +61,14 @@ class Poetry : BaseFragment() {
             }
         }
 
-        poetryViewModel.getMultipleRandomPoem(5)
+        poetryViewModel.getPoemByTitle("hope")
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    override fun onItemClicked(item: Poem) {
+        poetryViewModel.getPoemByTitle(item.title)
+        findNavController().navigate(R.id.action_PoemsView_to_PoemDetailsView)
     }
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Textview style  -->
+    <style name="Widget.Poem.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+        <item name="android:textSize">@dimen/text_size</item>
+    </style>
+
+    <!--  Textview style for labels  -->
+    <style name="Widget.Poem.TextView.Label" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--  Textview style for card view items  -->
+    <style name="Widget.Poem.TextView.CardItem" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size</item>
+    </style>
+</resources>
