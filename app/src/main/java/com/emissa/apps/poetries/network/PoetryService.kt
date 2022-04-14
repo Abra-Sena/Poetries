@@ -8,12 +8,10 @@ import retrofit2.http.Query
 interface PoetryService {
     companion object {
         const val BASE_URL = "https://poetrydb.org/"
-        // retrieves all authors alphabetically ordered
+        // retrieves all authors having the passed param in the name
         private const val AUTHOR_PATH = "author"
-
-        // retrieves all poem alphabetically ordered by title
+        // retrieves all poem having the passed param in the title
         private const val TITLE_PATH = "title"
-
         // retrieves a random poem
         private const val RANDOM_PATH = "random"
     }
@@ -24,7 +22,7 @@ interface PoetryService {
     @GET("$AUTHOR_PATH/author")
     suspend fun getPoemByAuthor(
         @Query("author") authorName: String
-    ) : Response<List<Poem>>
+    ) : Response<List<List<Poem>>>
 
     /**
      * Search for poems that have the passed param string in their title
@@ -32,14 +30,14 @@ interface PoetryService {
     @GET("$TITLE_PATH/title")
     suspend fun getPoemByTitle(
         @Query("title") poemTitle: String
-    ) : Response<List<Poem>>
+    ) : Response<List<List<Poem>>>
 
 
     /**
      * Get a random poem
      */
     @GET(RANDOM_PATH)
-    suspend fun getRandomPoem() : Response<Poem>
+    suspend fun getRandomPoem() : Response<List<Poem>>
 
 
     /**

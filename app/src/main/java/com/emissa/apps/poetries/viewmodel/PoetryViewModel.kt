@@ -36,23 +36,6 @@ class PoetryViewModel (
     private val _titlesLiveData: MutableLiveData<NetworkState> = MutableLiveData(NetworkState.LOADING)
     val titlesData: LiveData<NetworkState> get() = _titlesLiveData
 
-
-//    private suspend fun loadAuthorsFromDatabase() {
-//        try {
-//            val localData = databaseRepo.getAllAuthors()
-//            _authorsLiveData.postValue(NetworkState.SUCCESS(localData, isLocal = true))
-//        } catch (exc: Exception) {
-//            _authorsLiveData.postValue(NetworkState.ERROR(exc))
-//        }
-//    }
-//    private suspend fun loadTitlesFromDatabase() {
-//        try {
-//            val localData = databaseRepo.getAllPoemTitles()
-//            _titlesLiveData.postValue(NetworkState.SUCCESS(localData, isLocal = true))
-//        } catch (exc: Exception) {
-//            _titlesLiveData.postValue(NetworkState.ERROR(exc))
-//        }
-//    }
     private suspend fun loadPoemsFromDatabase() {
         try {
             val localData = databaseRepo.getPoemByTitle(title = "")
@@ -63,12 +46,12 @@ class PoetryViewModel (
     }
 
 
-    fun getAuthors() {
+    fun getPoemByAuthors(author: String) {
         _authorsLiveData.postValue(NetworkState.LOADING)
 
         viewModelSafeScope.launch(ioDispatcher) {
             try {
-                val response = poemRepo.getAllAuthors()
+                val response = poemRepo.getPoemByAuthor(author)
 
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -78,30 +61,12 @@ class PoetryViewModel (
                     } ?: throw Exception("No response, Retrieving all authors from end point!")
                 } else throw Exception("Unsuccessful, Request Retrieving all authors from end point!")
             } catch (e: Exception) {
+                Log.e("viewmodel", "getAuthors: errror", e)
                 _authorsLiveData.postValue(NetworkState.ERROR(e))
             }
         }
     }
 
-    fun getAllPoemTitles() {
-        _titlesLiveData.postValue(NetworkState.LOADING)
-
-        viewModelSafeScope.launch(ioDispatcher) {
-            try {
-                val response = poemRepo.getAllPoemByTitle()
-
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        withContext(Dispatchers.Main) {
-                            _titlesLiveData.postValue(NetworkState.SUCCESS(it))
-                        }
-                    } ?: throw Exception("No response, Retrieving all poems ordered by title!")
-                } else throw Exception("Unsuccessful, Request Retrieving all poems ordered by title!")
-            } catch (e: Exception) {
-                _titlesLiveData.postValue(NetworkState.ERROR(e))
-            }
-        }
-    }
 
     fun getPoemByTitle(title: String) {
         _poemLiveData.postValue(NetworkState.LOADING)
@@ -112,12 +77,12 @@ class PoetryViewModel (
                 if (response.isSuccessful) {
                     response.body()?.let {
                         withContext(Dispatchers.Main) {
-                            _titlesLiveData.postValue(NetworkState.SUCCESS(it))
+                            _poemLiveData.postValue(NetworkState.SUCCESS(it))
                         }
                     } ?: throw Exception("No response, Searching for Poem with title $title")
                 } else throw Exception("Unsuccessful, Searching for Poem with title $title!")
             } catch (e: Exception) {
-                _titlesLiveData.postValue(NetworkState.ERROR(e))
+                _poemLiveData.postValue(NetworkState.ERROR(e))
                 loadPoemsFromDatabase()
             }
         }
@@ -131,10 +96,10 @@ class PoetryViewModel (
                 val response = poemRepo.getRandomPoem()
 
                 if (response.isSuccessful) {
-                    response.body()?.let {
+                    response.body()?.let { poems->
                         withContext(Dispatchers.Main) {
-                            _titlesLiveData.postValue(NetworkState.SUCCESS(it))
-                            _poem.value = response.body()
+                            _titlesLiveData.postValue(NetworkState.SUCCESS(poems[0]))
+                            _poem.value = poems[0]
                             Log.i("ViewModel", response.body().toString())
                         }
                     } ?: throw Exception("No response, Retrieving a random poem")

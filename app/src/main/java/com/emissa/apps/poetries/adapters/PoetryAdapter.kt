@@ -16,7 +16,6 @@ class PoetryViewHolder<T> internal constructor(
             itemClicked.onItemClicked(item)
         }
     }
-
  }
 
 interface ItemClickListener<T> {
@@ -51,28 +50,3 @@ class PoetryAdapter<T>(
 
     override fun getItemCount(): Int = listOfItem!!.size
 }
-
-
-
-//class ListViewHolder(
-//    private val binding: ListItemBinding
-//): PoetryViewHolder<String>(binding) {
-//
-//    override fun bind(item: String?) {
-//        binding.listItemValue.text = item
-//    }
-//}
-//
-//class PoemViewHolder(
-//    private val binding: PoemItemBinding
-//) : PoetryViewHolder<Poem>(binding) {
-//
-//    override fun bind(item: Poem?) {
-//        binding.apply {
-//            poemAuthor.text = item?.author
-//            poemTitle.text = item?.title
-//            poemContent.text = item?.lines?.let { DataConverter.fromListToString(it) }
-//        }
-//
-//    }
-//}

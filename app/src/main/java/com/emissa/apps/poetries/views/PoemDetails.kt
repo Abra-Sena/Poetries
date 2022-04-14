@@ -1,6 +1,7 @@
 package com.emissa.apps.poetries.views
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,14 +21,18 @@ class PoemDetails : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding.progressBarDetails.visibility = View.VISIBLE
 
-        val poemToDisplay = poetryViewModel.getPoemDetails()
-        Log.i("ViewPoem", poemToDisplay.toString())
-        binding.apply {
-            poemAuthorView.text = poemToDisplay?.author
-            poemTitleView.text = poemToDisplay?.title
-            poemContentView.text = poemToDisplay?.lines?.toString()
+        poetryViewModel.poem.observe(viewLifecycleOwner){ poemToDisplay->
+            Log.i("ViewPoem", poemToDisplay.toString())
+            binding.apply {
+                poemAuthorView.text = poemToDisplay?.author
+                poemTitleView.text = poemToDisplay?.title
+                poemContentView.text = poemToDisplay?.lines?.toString()
+                poemContentView.movementMethod = ScrollingMovementMethod()
+            }
         }
+        binding.progressBarDetails.visibility = View.GONE
 
         // Inflate the layout for this fragment
         return binding.root

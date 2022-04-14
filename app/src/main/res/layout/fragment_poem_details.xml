@@ -4,16 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/margin_medium"
-    android:background="@color/purple_200"
     tools:context=".views.PoemDetails">
+
+    <ProgressBar
+        android:id="@+id/progress_bar_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/author_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:paddingHorizontal="@dimen/margin_medium"
         android:orientation="horizontal"
-        android:background="@color/teal_700"
         app:layout_constraintBottom_toTopOf="@id/title_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,10 +30,9 @@
 
         <TextView
             android:id="@+id/author_label"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:text="Author: "
-            style="@style/Widget.Poem.TextView.Label" />
+            android:text="Author: " />
 
         <TextView
             android:id="@+id/poem_author_view"
@@ -38,19 +46,17 @@
         android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teal_200"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/poem_content_view"
+        android:paddingHorizontal="@dimen/margin_medium"
+        app:layout_constraintBottom_toTopOf="@id/view_divider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/author_view">
 
         <TextView
             android:id="@+id/title_label"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:text="Title: "
-            style="@style/Widget.Poem.TextView.Label" />
+            android:text="Title: " />
 
         <TextView
             android:id="@+id/poem_title_view"
@@ -71,10 +77,10 @@
         android:id="@+id/poem_content_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        android:layout_marginVertical="@dimen/margin_medium"
-        android:background="@color/teal_700"
         android:text="poem text"
+        android:textAlignment="gravity"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:padding="@dimen/margin_medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_divider" />

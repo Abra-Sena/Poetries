@@ -2,8 +2,6 @@ package com.emissa.apps.poetries.database
 
 import androidx.room.*
 import com.emissa.apps.poetries.model.Poem
-import com.emissa.apps.poetries.model.PoemAuthors
-import com.emissa.apps.poetries.model.PoemTitles
 import com.emissa.apps.poetries.utils.DataConverter
 
 

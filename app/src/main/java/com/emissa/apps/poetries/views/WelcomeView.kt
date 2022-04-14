@@ -21,19 +21,19 @@ class WelcomeView : BaseFragment() {
     ): View {
         binding.btnAuthors.setOnClickListener {
             binding.searchView.visibility = View.VISIBLE
-            val action = WelcomeViewDirections.actionWelcomeToAuthors()
+            val action = WelcomeViewDirections.actionWelcomeViewToList()
             findNavController().navigate(action)
         }
 
         binding.btnPoetry.setOnClickListener {
             binding.searchView.visibility = View.VISIBLE
-            val action = WelcomeViewDirections.actionWelcomeToPoetry()
+            val action = WelcomeViewDirections.actionWelcomeViewToSearch()
             findNavController().navigate(action)
         }
 
         binding.btnRandom.setOnClickListener {
             poetryViewModel.getRandomPoem()
-            val action = WelcomeViewDirections.actionWelcomeViewToPoemDetailsView()
+            val action = WelcomeViewDirections.actionWelcomeViewToDetails()
             findNavController().navigate(action)
         }
 
